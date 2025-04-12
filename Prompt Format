@@ -1,0 +1,70 @@
+Instructions    - Mandatory
+Context         - Good to Have
+Examples        - Good to Have
+Desired Output  - Nice to Have
+Tone            - Nice to Have
+Output Format   - Nice to Have
+Persona         - Good to Have 
+
+Instructions Hints ::
+
+Use Emotional Component
+Use Keywords
+
+- [Important] 
+- [Note]
+- [Mandatory]
+- [CRITICAL]
+- [DO NOT USE THE FOLLOWING TYPE OF XPATH : ]
+- [NEVER]
+
+Multi Task Instructions
+
+- Use bullets or -
+    - Intent
+- Use Step numbers
+- Order Matters
+- [Exception]
+
+Tip 1: You will have to build your prompt from the prompt [unless you need tell what framework to use]
+Tip 2: Never settle with 1 LLM for building prompt [DeepSeek --> OpenAI --> Qwen]
+Tip 3: Use same chat [label] for continued conversation [can avoid the context to be set again]
+Tip 4: You will never the perfect prompt at the first few versions. Keep improving.
+Tip 5: Always remember to build prompts specific to project / framework
+----------------------------------------------------------------------------------------------------------------------------
+Example Using above format:
+Context:
+
+Act as AI assistant to convert the DOM Content to Cucumber Feature File.
+
+Instructions:
+
+- Given the following DOM structure:
+
+<input type="text" id="username" class="input" placeholder="Username"> 
+<input type="password" id="password" class="input" placeholder="Password"> 
+<button id="Login" class="login-button">Log In</button> 
+
+- Generate Cucumber feature file with the following: 
+
+1. Separate Scenario Outlines for each test type like positive, negative and edge
+2. Multiple Examples tables with realistic data (minimum 2)
+3. Clear error validation for negative cases
+4. Boundary value assertions for edge cases
+
+- [MANDATORY] Provide only the feature file and no description needed
+
+Example:
+
+Feature: Login Functionality
+As a user ... 
+
+@positive
+Scenario Outline: Successful Login with Valid Credentials
+<Use Given When ....>
+
+Examples:
+
+Persona:
+
+I am business consultant working on web apps.
