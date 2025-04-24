@@ -1,0 +1,24 @@
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static io.restassured.RestAssured.*;
+
+public class SoapFileRequest {
+    public static void main(String[] args) throws Exception {
+        String endpoint = "https://vwmazampleap.dev.local:33335/ContentServices/WatchListService.svc";
+
+        // Read full XML content from file
+        String body = new String(Files.readAllBytes(Paths.get("src/test/resources/soapRequest.xml")));
+
+        Response response = given()
+                .header("Content-Type", "text/xml")
+                .auth().preemptive().basic("yourUsername", "yourPassword") // Optional if required
+                .body(body)
+                .when()
+                .post(endpoint);
+
+        System.out.println("Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: \n" + response.getBody().asString());
+    }
+}
