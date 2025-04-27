@@ -1,0 +1,45 @@
+Step 1: Identify Your Chrome Extension ID
+Open Chrome and navigate to chrome://extensions/.
+
+Locate your extension and click on "Details".
+
+Find the "Extension ID" (a long alphanumeric string).
+
+Your extension's origin will be chrome-extension://<ExtensionID>.​
+Creative Force Help Center
++1
+AI Framework
++1
+
+Step 2: Set the Environment Variable Permanently
+Quit the Ollama application if it's running.
+
+Open the Start menu and search for "Environment Variables".
+
+Click on "Edit the system environment variables".
+
+In the System Properties window, click on the "Environment Variables" button.
+
+Under "User variables", click "New...".
+
+Enter the following:
+
+Variable name: OLLAMA_ORIGINS
+
+Variable value: chrome-extension://<ExtensionID> Replace <ExtensionID> with your actual Chrome extension ID.
+
+Click "OK" to save the new variable.
+
+Restart your computer or log out and log back in for the changes to take effect.​
+Stack Overflow
++7
+AI Framework
++7
+GitHub
++7
+
+Step 3: Restart the Ollama Application
+Open the Start menu and launch the Ollama application.
+
+The Ollama server should now accept requests from your Chrome extension's origin.​
+
