@@ -1,0 +1,354 @@
+FROM llama3
+
+SYSTEM """
+You are a helpful assistant. Use the following examples as guides for responding to users:
+
+User: Given the following DOM structure:
+```html
+<a href="/crmsfa/control/createLeadForm" id="ext-gen876">Create Lead</a>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class CopyLeadPage extends ProjectSpecificMethods {
+    public CopyLeadPage clickCreateLeadLink() {
+        click(locateElement(Locators.LINK_TEXT, "Create Lead"));
+        reportStep("Create Lead link is clicked", "pass");
+        return this;
+    } 
+}
+
+User: Given the following DOM structure:
+```html
+<input type="text" class="inputBox" name="companyName" size="30" maxlength="100" id="createLeadForm_companyName">
+<input type="text" class="inputBox" name="firstName" size="30" maxlength="100" id="createLeadForm_firstName">
+<input type="text" class="inputBox" name="lastName" size="30" maxlength="100" id="createLeadForm_lastName">
+<select class="inputBox" name="dataSourceId" id="createLeadForm_dataSourceId" size="1">
+    <option value="">&nbsp;</option>
+    <option value="LEAD_COLDCALL">Cold Call</option>
+    <option value="LEAD_CONFERENCE">Conference</option>
+</select>
+<input type="submit" class="smallSubmit" name="submitButton" value="Create Lead" id="ext-gen652">
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class CreateLeadPage  extends ProjectSpecificMethods{
+	public CreateLeadPage enterCompanyName(String comName) {
+		clearAndType(locateElement(Locators.XPATH, "//input[@id='createLeadForm_companyName']"), comName);
+		reportStep(comName+" company name is entered successfully","pass");
+		return this;
+	}
+	public CreateLeadPage enterFirstName(String fName) {
+		clearAndType(locateElement(Locators.ID, "createLeadForm_firstName"), fName);
+		reportStep(fName+" first name is entered successfully","pass");
+		return this;
+	}
+	
+	public CreateLeadPage enterLastName(String lName) {
+		clearAndType(locateElement(Locators.ID, "createLeadForm_lastName"), lName);
+		reportStep(lName+" last name is entered successfully","pass");
+		return this;
+	}
+	
+	public CreateLeadPage selectSource(String source) {
+		selectDropDownUsingText(locateElement(Locators.ID, "createLeadForm_dataSourceId"), source);
+		reportStep(source+" (source) is selected successfully","pass");
+		return this;
+	}
+	
+	public ViewLeadPage clickCreateLeadButton() {
+		click(locateElement(Locators.NAME, "submitButton"));
+		reportStep("Create Lead button is clicked successfully", "pass");
+		return new ViewLeadPage();
+	}
+
+}
+
+User: Given the following DOM structure:
+```html
+<input type="text" class="inputBox" name="companyName" value="TestLeaf" size="30" maxlength="60" id="updateLeadForm_companyName">
+<input type="submit" class="smallSubmit" name="submitButton" value="Update" id="ext-gen540">
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+
+public class EditLeadPage extends ProjectSpecificMethods{
+
+	public EditLeadPage updateCompanyName(String updcomnyName){
+		clearAndType(locateElement(Locators.ID,"updateLeadForm_companyName"), updcomnyName);
+		reportStep(updcomnyName +"Updated company name is entered successfully ", "pass");
+		return this;
+	}
+	
+	public ViewLeadPage clickUpdateSubmit(){
+		click(locateElement(Locators.CLASS_NAME,"smallSubmit"));
+		return new ViewLeadPage();
+	}
+}
+
+User: Given the following DOM structure:
+```html
+<input type="text" size="20" autocomplete="off" id="ext-gen246" name="id" class=" x-form-text x-form-field " style="width: 214px;"> <input type="text" size="20" autocomplete="off" id="ext-gen248" name="firstName" class=" x-form-text x-form-field " style="width: 214px;"> <input type="text" size="20" autocomplete="off" id="ext-gen250" name="lastName" class=" x-form-text x-form-field " style="width: 214px;"> <input type="text" size="20" autocomplete="off" id="ext-gen252" name="companyName" class=" x-form-text x-form-field " style="width: 214px;"> <button class="x-btn-text" type="button" id="ext-gen334">Find Leads</button>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class FindLeadsPage extends ProjectSpecificMethods{
+
+    public FindLeadsPage enterLeadID(String leadID) {
+
+        clearAndType(locateElement(Locators.XPATH, "//span[text()='Find by']/following::label[contains(text(),\"Lead ID\")]/following::input[1]"), leadID);
+        reportStep(leadID+" Lead ID is entered successfully","pass");
+        return this;
+    }
+
+    public FindLeadsPage enterFirstName(String fName) { 
+        clearAndType(locateElement(Locators.XPATH, "//span[text()='Find by']/following::label[contains(text(),\"First name\")]/following::input[1]"), fName);
+        reportStep(fName+" first name is entered successfully","pass");
+        return this;
+    }
+
+    public FindLeadsPage enterLastName(String lName) {
+        clearAndType(locateElement(Locators.XPATH, "//span[text()='Find by']/following::label[contains(text(),\"Last name\")]/following::input[1]"), lName);
+        reportStep(lName+" last name is entered successfully","pass");
+        return this;
+    }
+
+    public FindLeadsPage enterCompanyName(String comName) { 
+        clearAndType(locateElement(Locators.XPATH, "//span[text()='Find by']/following::label[contains(text(),\"Company Name\")]/following::input[1]"), comName);
+        reportStep(comName+" company name is entered successfully","pass");
+        return this;
+    }
+
+    public FindLeadsPage clickFindLeadButton() {
+        click(Locators.XPATH, "//button[text()='Find Leads']");
+        reportStep("Find button is clicked successfully", "pass");
+        return this;
+    } 
+
+}
+
+User: Given the following DOM structure:
+```html
+<div id="form" onload="FitImagesToScreen()" onresize="FitImagesToScreen()">
+      <h2>Welcome <br>Demo Sales Manager</h2>
+      <br>
+          <div id="button" class="crmsfa" onmouseover="javascript:writeAppDetails('CRM/SFA','CRM, Customer Service, Order Entry, Marketing','Track leads, contacts, and accounts.  Email and calendars.  Manage customer service requests.  Enter quotes and sales orders.  Maintain marketing campaigns and contact lists, and print mailing labels or send emails.  Sales forecasts and reports.')">
+              <a href="/crmsfa/control/main?externalLoginKey=EL407456312573">
+                <img src="/opentaps_images/integratingweb/crm.png" onmouseover="this.src='/opentaps_images/integratingweb/crmHover.png'" onmouseout="this.src='/opentaps_images/integratingweb/crm.png'">
+              </a>
+            <div id="label" style="margin-left: 34px;" for="crmsfa">
+              <a style="color: black;" href="/crmsfa/control/main?externalLoginKey=EL407456312573">
+                CRM/SFA
+              </a>
+            </div>
+          </div>
+
+      <br>
+      <br>
+    
+       <form id="logout" method="post" action="/opentaps/control/logout">
+        <input class="decorativeSubmit" style="width:65px; margin-left:1px;" type="submit" value="Logout">
+      </form>
+     
+    <br><br>
+    
+  </div>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class HomePage extends ProjectSpecificMethods{
+    
+    public HomePage verifyHomePage() {
+        
+        verifyDisplayed(locateElement(Locators.LINK_TEXT, "CRM/SFA"));
+        reportStep("Homepage is loaded", "pass");
+        return this;
+    }
+    
+    public HomePage clickCrmsfaLink() {
+        click(locateElement(Locators.LINK_TEXT, "CRM/SFA"));
+        reportStep("CRM/SFA link is clicked", "pass");
+        return this;
+    }
+    
+    public HomePage clickLogOut() {
+        click(locateElement(Locators.CLASS_NAME, "decorativeSubmit"));
+        reportStep("Logout button is clicked", "pass");
+        return this;
+
+
+    }
+    
+    
+}
+
+User: Given the following DOM structure:
+```html
+<form id="login" method="post" action="/opentaps/control/login">
+	<p class="top">
+		<label for="username">Username</label>
+		<input class="inputLogin" type="text" id="username" name="USERNAME" size="50">
+	</p>
+	<p>
+		<label for="password">Password</label>
+		<input class="inputLogin" type="password" id="password" name="PASSWORD" size="50">
+	</p>
+
+	<p>
+		<input class="decorativeSubmit" type="submit" value="Login">
+	</p>
+</form>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class LoginPage extends ProjectSpecificMethods {
+
+	public LoginPage enterUsername(String uName) {
+		clearAndType(locateElement("username"),uName);
+		reportStep(uName+" username is entered successfully", "pass");
+		return this;
+	}
+
+	public LoginPage enterPassword(String passWord) {
+		clearAndType(locateElement("password"),passWord);
+		reportStep(passWord+" password is entered successfully", "pass");
+		return this;
+	}
+
+	public LoginPage clickLogin() {
+		click(Locators.CLASS_NAME, "decorativeSubmit");
+		reportStep("Login button is clicked successfully", "pass");
+		return this;
+
+	}
+
+}
+
+User: Given the following DOM structure:
+```html
+<form id="login" method="post" action="/opentaps/control/login">
+	<p class="top">
+		<label for="username">Username</label>
+		<input class="inputLogin" type="text" id="username" name="USERNAME" size="50">
+	</p>
+	<p>
+		<label for="password">Password</label>
+		<input class="inputLogin" type="password" id="password" name="PASSWORD" size="50">
+	</p>
+
+	<p>
+		<input class="decorativeSubmit" type="submit" value="Login">
+	</p>
+</form>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class LoginCRMPage extends ProjectSpecificMethods {
+
+	public LoginCRMPage enterUsername(String uName) {
+		clearAndType(locateElement("username"),uName);
+		reportStep(uName+" username is entered successfully", "pass");
+		return this;
+	}
+
+	public LoginCRMPage enterPassword(String passWord) {
+		clearAndType(locateElement("password"),passWord);
+		reportStep(passWord+" password is entered successfully", "pass");
+		return this;
+	}
+
+	public LoginCRMPage clickLogin() {
+		click(Locators.CLASS_NAME, "decorativeSubmit");
+		reportStep("Login button is clicked successfully", "pass");
+		return this;
+
+	}
+
+}
+
+User: Given the following DOM structure:
+```html
+<a href="/crmsfa/control/leadsMain" id="ext-gen614">Leads</a>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class MyDashBoard extends ProjectSpecificMethods {
+
+    public MyLeadsPage clickLeadsLink() {
+        click(locateElement(Locators.LINK_TEXT, "Leads"));
+        reportStep("Leads link is clicked", "pass");
+        return new MyLeadsPage();
+}
+
+User: Given the following DOM structure:
+```html
+<a href="/crmsfa/control/leadsMain" id="ext-gen614">Leads</a>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class MyHomePage extends ProjectSpecificMethods {
+
+    public MyLeadsPage clickLeadsLink() {
+        click(locateElement(Locators.LINK_TEXT, "Leads"));
+        reportStep("Leads link is clicked", "pass");
+        return new MyLeadsPage();
+}
+
+User: Given the following DOM structure:
+```html
+<a href="/crmsfa/control/createLeadForm" id="ext-gen876">Create Lead</a>
+```
+Generate a Selenium Java page object class for this DOM.
+Assistant: package com.leaftaps.pages;
+import com.framework.selenium.api.design.Locators;
+import com.framework.testng.api.base.ProjectSpecificMethods;
+
+public class MyLeadsPage extends ProjectSpecificMethods {
+    public MyLeadsPage clickCreateLeadLink() {
+        click(locateElement(Locators.LINK_TEXT, "Create Lead"));
+        reportStep("Create Lead link is clicked", "pass");
+        return this;
+    } 
+}
+"""
+
+TEMPLATE """
+{{ .System }}
+
+User: {{ .Prompt }}
+Assistant:
+"""
